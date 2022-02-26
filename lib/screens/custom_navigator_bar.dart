@@ -5,21 +5,12 @@ class CustomNavigatorBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
-      child: Container(
-        color: Colors.blueGrey,
-        height: kBottomNavigationBarHeight,
-        width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.live_tv_sharp)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.live_tv_sharp))
-          ],
-        ),
-      ),
+    return BottomNavigationBar(
+      currentIndex: 1,
+      items: [
+        BottomNavigationBarItem(label: '1', icon: Icon(Icons.abc)),
+        BottomNavigationBarItem(label: '2', icon: Icon(Icons.abc)),
+      ],
     );
   }
 }
