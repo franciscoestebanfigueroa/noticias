@@ -10,21 +10,29 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final indiceBotton =
         Provider.of<ProviderCustomBottonBar>(context, listen: true);
-    print(indiceBotton.indexBotton);
+    final controlerPage=indiceBotton.pagecontroler;
     return Scaffold(
-      body: indiceBotton.indexBotton == 0 ? Page2() : Page1(),
+      body: _Body(controlerPage:controlerPage),
       bottomNavigationBar: const CustomNavigatorBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final x =
-              Provider.of<ProviderCustomBottonBar>(context, listen: false);
-          if (x.indexBotton == 0) {
-            x.indexBotton = 1;
-          } else {
-            x.indexBotton = 0;
-          }
-        },
-      ),
+      
+      
     );
+  }
+}
+class _Body extends StatelessWidget {
+PageController controlerPage;
+  _Body({ Key? key, required this.controlerPage }) : super(key: key);
+ 
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      controller: controlerPage,
+children: const[
+  Page1(),
+  Page2()
+],
+
+    );
+      
   }
 }
