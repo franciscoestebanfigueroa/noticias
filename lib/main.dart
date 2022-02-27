@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noticias/providers/provider_custom_botton_bar.dart';
+import 'package:noticias/providers/provider_services.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/screens.dart';
@@ -14,6 +15,7 @@ class MyAppProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => ProviderService()),
       ChangeNotifierProvider(
         create: (_) => ProviderCustomBottonBar(),
       )
