@@ -1,6 +1,17 @@
-class ModelNotice {
-  final String? sourceName;
-  final String? sourceId;
+class Data {
+  final String status;
+  final int totalResults;
+  final List<Articles> articles;
+
+  Data.fromjson(Map<String, dynamic> data)
+      : status = data['status'],
+        totalResults = data['totalResults'],
+        articles = List<Articles>.from(
+            data['articles'].map((e) => Articles.fromjson(e)));
+}
+
+class Articles {
+  final Source source;
   final String titulo;
   final String? description;
   final String? url;
@@ -8,16 +19,21 @@ class ModelNotice {
   final String? datePublished;
   final String? content;
 
-  ModelNotice(this.sourceName, this.sourceId, this.titulo, this.description,
-      this.url, this.urlImage, this.datePublished, this.content);
+  Articles.fromjson(Map<String, dynamic> json)
+      : source = Source.fromjson(json['source']),
+        content = json['content'] ?? '',
+        datePublished = json['publishedAt'] ?? '',
+        description = json['description'] ?? '',
+        titulo = json['title'] ?? '',
+        url = json['url'] ?? '',
+        urlImage = json['urlToImage'] ?? '';
+}
 
-  ModelNotice.fromJson(Map<String, dynamic> json)
-      : sourceName = json['source']['id'] ?? '1',
-        sourceId = json['source']['name'] ?? '2',
-        titulo = json['title'],
-        description = json['description'] ?? '3',
-        url = json['url'] ?? '4',
-        urlImage = json['urlToImage'] ?? '',
-        datePublished = json['publishedAt'] ?? '6',
-        content = json['content'] ?? '7';
+class Source {
+  final String? sourceName;
+  final String? sourceId;
+
+  Source.fromjson(Map<String, dynamic> source)
+      : sourceName = source['name'] ?? '',
+        sourceId = source['id'] ?? '';
 }

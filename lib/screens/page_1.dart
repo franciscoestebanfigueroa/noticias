@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:noticias/providers/provider_services.dart';
 import 'package:provider/provider.dart';
 
+import 'screens.dart';
+
 class Page1 extends StatelessWidget {
   static String router = 'page_1';
   const Page1({Key? key}) : super(key: key);
@@ -15,28 +17,38 @@ class Page1 extends StatelessWidget {
       child: ListView.builder(
           itemCount: providerUrl.listadoNoticias.length,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: FadeInImage(
-                    placeholder: const NetworkImage(
-                        'https://via.placeholder.com/100x100/'),
-                    image: imgdata(providerUrl, index),
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Scaffold(
+                    body: DetalleNoticias(
+                        articles: providerUrl.listadoNoticias[index]),
+                  );
+                }));
+              },
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: FadeInImage(
+                      placeholder: const NetworkImage(
+                          'https://via.placeholder.com/100x100/'),
+                      image: imgdata(providerUrl, index),
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(providerUrl.listadoNoticias[index].titulo,
-                    style: const TextStyle(fontWeight: FontWeight.w900)),
-                Text(
-                  providerUrl.listadoNoticias[index].description ?? '',
-                  maxLines: 2,
-                  style: const TextStyle(overflow: TextOverflow.ellipsis),
-                ),
-                const Divider(),
-              ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(providerUrl.listadoNoticias[index].titulo,
+                      style: const TextStyle(fontWeight: FontWeight.w900)),
+                  Text(
+                    providerUrl.listadoNoticias[index].description ?? '',
+                    maxLines: 2,
+                    style: const TextStyle(overflow: TextOverflow.ellipsis),
+                  ),
+                  const Divider(),
+                ],
+              ),
             );
           }),
     );

@@ -15,12 +15,12 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: _Body(controlerPage: controlerPage),
       bottomNavigationBar: const CustomNavigatorBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final data = Provider.of<ProviderService>(context, listen: false);
-          await data.getNotice();
-        },
-      ),
+      //  floatingActionButton: FloatingActionButton(
+      //    onPressed: () async {
+      //      final data = Provider.of<ProviderService>(context, listen: false);
+      //      await data.getNotice();
+      //  },
+      // ),
     );
   }
 }
@@ -33,7 +33,10 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageView(
       controller: controlerPage,
-      children: const [Page1(), Page2()],
+      children: const [
+        Page1(),
+        Page2(),
+      ],
     );
   }
 }
