@@ -33,9 +33,9 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageView(
       controller: controlerPage,
-      children: const [
+      children: [
         Page1(),
-        Page2(),
+        const Page2(),
       ],
     );
   }
