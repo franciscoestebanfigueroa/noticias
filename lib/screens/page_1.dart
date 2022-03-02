@@ -6,7 +6,11 @@ import 'screens.dart';
 
 class Page1 extends StatefulWidget {
   static String router = 'page_1';
-  const Page1({Key? key}) : super(key: key);
+  final ProviderService providerService;
+  Page1({
+    Key? key,
+    required this.providerService,
+  }) : super(key: key);
 
   @override
   State<Page1> createState() => _Page1State();
@@ -17,11 +21,15 @@ ScrollController scrollController = ScrollController();
 class _Page1State extends State<Page1> {
   @override
   void initState() {
-    scrollController.addListener(() {
-      print(scrollController.position.maxScrollExtent);
-      if ((scrollController.position.pixels) >
-          (scrollController.position.maxScrollExtent - 500)) {
-        print('pedir mas datos');
+    scrollController.addListener(() async {
+      // print(scrollController.position.pixels);
+      // print(scrollController.position.maxScrollExtent);
+      if ((scrollController.position.pixels) ==
+          (scrollController.position.maxScrollExtent)) {
+        // print('llamar');
+
+        await widget.providerService.getNotice();
+
         //llamar a get y add a lista desectructurando con  _listapopular = [..._listapopular, ...modelPopular.results];
       }
     });
@@ -39,18 +47,20 @@ class _Page1State extends State<Page1> {
     final providerUrl = Provider.of<ProviderService>(context);
 
     return providerUrl.listadoNoticias.isEmpty
-        ? ListView(
-            controller: scrollController,
-            children:
-                List.generate(1000, (index) => Center(child: Text('$index'))),
-          )
-        // const _ListEmpty()
+        ?
+        // ListView(
+        //      controller: scrollController,
+        //      children:
+        //          List.generate(1000, (index) => Center(child: Text('$index'))),
+        //    )
+        const _ListEmpty()
         : Container(
             margin: const EdgeInsets.all(10),
             child: ListView.builder(
                 controller: scrollController,
                 itemCount: providerUrl.listadoNoticias.length,
                 itemBuilder: (context, index) {
+                  print(index);
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(context,
@@ -91,9 +101,9 @@ class _Page1State extends State<Page1> {
           );
   }
 
-  NetworkImage imgdata(ProviderService providerUrl, int index) {
+  ImageProvider imgdata(ProviderService providerUrl, int index) {
     if (providerUrl.listadoNoticias[index].urlImage == '') {
-      return NetworkImage('https://via.placeholder.com/300x100/');
+      return const AssetImage('assets/no-image.png');
     } else {
       return NetworkImage(providerUrl.listadoNoticias[index].urlImage!);
     }

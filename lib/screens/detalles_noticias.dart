@@ -34,9 +34,18 @@ class DetalleNoticias extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
+                child: Text(articles.titulo),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: SingleChildScrollView(
                   child: Text(
-                    articles.content?.substring(0, 200) ?? '',
+                    articles.content!.length > 200
+                        ? articles.content?.substring(0, 200) ?? ''
+                        : articles.content ?? '',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),

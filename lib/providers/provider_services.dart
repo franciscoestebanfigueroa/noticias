@@ -6,12 +6,13 @@ import 'package:noticias/models/model_notice.dart';
 
 class ProviderService extends ChangeNotifier {
   List<Articles> listadoNoticias = [];
+  int page = 0;
 
   ProviderService() {
-    getNotice(1);
+    getNotice();
   }
 
-  Future getNotice(int page) async {
+  Future<List<Articles>> getNotice() async {
     const String uri =
         'https://newsapi.org/v2/top-headlines?country=ar&apiKey=208c4735550b42a8a31633529958a88f';
 
@@ -36,8 +37,12 @@ class ProviderService extends ChangeNotifier {
       Map<String, dynamic> mapaNotice = jsonDecode(response.body);
       final x = Data.fromjson(mapaNotice);
       listadoNoticias.addAll(x.articles);
-      print(listadoNoticias[0].url);
+      // listadoNoticias = [...listadoNoticias, ...x.articles];
+      //print(listadoNoticias.map(((e) => e.titulo)));
+      // print('page $page');
+      page++;
       notifyListeners();
     }
+    return listadoNoticias;
   }
 }

@@ -9,9 +9,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final indiceBotton =
+    final provider =
         Provider.of<ProviderCustomBottonBar>(context, listen: true);
-    final controlerPage = indiceBotton.pagecontroler;
+    final controlerPage = provider.pagecontroler;
     return Scaffold(
       body: _Body(controlerPage: controlerPage),
       bottomNavigationBar: const CustomNavigatorBar(),
@@ -31,10 +31,11 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final providerdata = Provider.of<ProviderService>(context);
     return PageView(
       controller: controlerPage,
       children: [
-        Page1(),
+        Page1(providerService: providerdata),
         const Page2(),
       ],
     );
