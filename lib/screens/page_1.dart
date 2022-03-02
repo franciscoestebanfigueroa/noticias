@@ -4,9 +4,26 @@ import 'package:provider/provider.dart';
 
 import 'screens.dart';
 
-class Page1 extends StatelessWidget {
+class Page1 extends StatefulWidget {
   static String router = 'page_1';
   const Page1({Key? key}) : super(key: key);
+
+  @override
+  State<Page1> createState() => _Page1State();
+}
+ScrollController _controller=ScrollController();
+class _Page1State extends State<Page1> {
+@override
+  void initState() {
+    _controller.addListener(() { 
+      if(_controller.position.pixels>_controller.position.maxScrollExtent-500) ;
+      {final x =Provider.of<ProviderService>(context,listen: false);
+      print(x.page);
+      print(_controller.position.pixels);
+    x.getNotice();}
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +32,7 @@ class Page1 extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(10),
       child: ListView.builder(
+          controller: _controller,
           itemCount: providerUrl.listadoNoticias.length,
           itemBuilder: (context, index) {
             return GestureDetector(

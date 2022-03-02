@@ -6,14 +6,14 @@ import 'package:noticias/models/model_notice.dart';
 
 class ProviderService extends ChangeNotifier {
   List<Articles> listadoNoticias = [];
-
+int page=0;
   ProviderService() {
     getNotice();
   }
 
   Future getNotice() async {
-    const String uri =
-        'https://newsapi.org/v2/top-headlines?country=ar&apiKey=208c4735550b42a8a31633529958a88f';
+     String uri =
+        'https://newsapi.org/v2/top-headlines?country=ar&apiKey=70df0e4d3b9b4c83b6ce6a0080b3c170&page=${page.toString()}';
     Uri url = Uri.parse(uri);
     http.Response response = await http.get(url);
 
@@ -22,7 +22,7 @@ class ProviderService extends ChangeNotifier {
     final x = Data.fromjson(mapaNotice);
     listadoNoticias.addAll(x.articles);
     print(listadoNoticias[0].url);
-
+page++;
     notifyListeners();
   }
 }
