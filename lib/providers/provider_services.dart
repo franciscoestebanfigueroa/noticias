@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:noticias/models/ejemplomodel.dart';
 import 'package:noticias/models/model_category.dart';
 import 'package:noticias/models/model_notice.dart';
 
@@ -43,6 +44,10 @@ Future getBusqueda(String category)async{
   http.Response response = await http.get(url);
   print(response.statusCode); 
   print(response.body);
+  var dataDecode= jsonDecode(response.body);
+  var data=Data.fromjson(dataDecode);
+  listadoNoticias.clear();
+  listadoNoticias.addAll(data.articles);
   
 
 

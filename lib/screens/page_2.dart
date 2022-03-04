@@ -64,6 +64,7 @@ class _CardNoticias extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider=Provider.of<ProviderService>(context);
     return Expanded(
       child: ListView.builder(
           itemCount: 100,
@@ -72,10 +73,10 @@ class _CardNoticias extends StatelessWidget {
                 child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                children: const [
+                children:  [
                   FadeInImage(
                       placeholder: AssetImage('assets/no-image.png'),
-                      image: AssetImage('assets/no-image.png')),
+                      image: NetworkImage(provider.listadoNoticias[index].urlImage!)),
                   Text('hola'),
                 ],
               ),
