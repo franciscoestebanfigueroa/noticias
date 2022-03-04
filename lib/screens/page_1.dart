@@ -16,18 +16,12 @@ class Page1 extends StatefulWidget {
   State<Page1> createState() => _Page1State();
 }
 
-ScrollController scrollController = ScrollController();
-
-class _Page1State extends State<Page1> {
+class _Page1State extends State<Page1> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
-    scrollController.addListener(() async {
-      // print(scrollController.position.pixels);
-      // print(scrollController.position.maxScrollExtent);
-      if ((scrollController.position.pixels) ==
-          (scrollController.position.maxScrollExtent)) {
-        // print('llamar');
-
+    widget.providerService.addListener(() async {
+      if ((widget.providerService.scrollController.position.pixels) ==
+          (widget.providerService.scrollController.position.maxScrollExtent)) {
         await widget.providerService.getNotice();
 
         //llamar a get y add a lista desectructurando con  _listapopular = [..._listapopular, ...modelPopular.results];
@@ -35,12 +29,12 @@ class _Page1State extends State<Page1> {
     });
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    scrollController.removeListener(() {});
-    scrollController.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   scrollController.removeListener(() {});
+  //   scrollController.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +51,9 @@ class _Page1State extends State<Page1> {
         : Container(
             margin: const EdgeInsets.all(10),
             child: ListView.builder(
-                controller: scrollController,
+                controller: providerUrl.scrollController,
                 itemCount: providerUrl.listadoNoticias.length,
                 itemBuilder: (context, index) {
-                  print(index);
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(context,
@@ -108,6 +101,11 @@ class _Page1State extends State<Page1> {
       return NetworkImage(providerUrl.listadoNoticias[index].urlImage!);
     }
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive =>
+      true; //mantiene el estado automatico para cuando regresamos de un page
 }
 
 class _ListEmpty extends StatelessWidget {

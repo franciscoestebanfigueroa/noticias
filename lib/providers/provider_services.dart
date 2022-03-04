@@ -7,16 +7,17 @@ import 'package:noticias/models/model_category.dart';
 import 'package:noticias/models/model_notice.dart';
 
 class ProviderService extends ChangeNotifier {
-  List<Articles> listadoNoticias = [];
-  List<Categorias>category=[
-    Categorias( FontAwesomeIcons.building, 'business'  ),
-    Categorias( FontAwesomeIcons.tv, 'entertainment'  ),
-    Categorias( FontAwesomeIcons.addressCard, 'general'  ),
-    Categorias( FontAwesomeIcons.headSideVirus, 'health'  ),
-    Categorias( FontAwesomeIcons.vials, 'science'  ),
-    Categorias( FontAwesomeIcons.volleyballBall, 'sports'  ),
-    Categorias( FontAwesomeIcons.memory, 'technology'  ),
+  ScrollController scrollController = ScrollController();
 
+  List<Articles> listadoNoticias = [];
+  List<Categorias> category = [
+    Categorias(FontAwesomeIcons.building, 'business'),
+    Categorias(FontAwesomeIcons.tv, 'entertainment'),
+    Categorias(FontAwesomeIcons.addressCard, 'general'),
+    Categorias(FontAwesomeIcons.headSideVirus, 'health'),
+    Categorias(FontAwesomeIcons.vials, 'science'),
+    Categorias(FontAwesomeIcons.volleyballBall, 'sports'),
+    Categorias(FontAwesomeIcons.memory, 'technology'),
   ];
   int page = 0;
 
