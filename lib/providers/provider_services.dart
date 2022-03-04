@@ -1,11 +1,23 @@
 import 'dart:convert';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:noticias/models/model_category.dart';
 import 'package:noticias/models/model_notice.dart';
 
 class ProviderService extends ChangeNotifier {
   List<Articles> listadoNoticias = [];
+  List<Categorias>category=[
+    Categorias( FontAwesomeIcons.building, 'business'  ),
+    Categorias( FontAwesomeIcons.tv, 'entertainment'  ),
+    Categorias( FontAwesomeIcons.addressCard, 'general'  ),
+    Categorias( FontAwesomeIcons.headSideVirus, 'health'  ),
+    Categorias( FontAwesomeIcons.vials, 'science'  ),
+    Categorias( FontAwesomeIcons.volleyballBall, 'sports'  ),
+    Categorias( FontAwesomeIcons.memory, 'technology'  ),
+
+  ];
   int page = 0;
 
   ProviderService() {
