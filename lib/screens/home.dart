@@ -15,12 +15,12 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: _Body(controlerPage: controlerPage),
       bottomNavigationBar: const CustomNavigatorBar(),
-      //  floatingActionButton: FloatingActionButton(
-      //    onPressed: () async {
-      //      final data = Provider.of<ProviderService>(context, listen: false);
-      //      await data.getNotice();
-      //  },
-      // ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            final data = Provider.of<ProviderService>(context, listen: false);
+            await data.getBusqueda('technology');
+        },
+       ),
     );
   }
 }

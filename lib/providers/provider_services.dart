@@ -25,6 +25,31 @@ class ProviderService extends ChangeNotifier {
     getNotice();
   }
 
+
+Future getBusqueda(String category)async{
+ //https://newsapi.org/v2/top-headlines/sources?apiKey=API_KEY
+
+    String authority='newsapi.org';
+    String unencodedPath='v2/top-headlines/sources';
+    Map<String,dynamic>q={
+      'country': 'ar',
+        'apiKey': '208c4735550b42a8a31633529958a88f',
+        'page':'0',
+        'category':category
+
+    };
+
+  Uri url = Uri.https(authority, unencodedPath,q);
+  http.Response response = await http.get(url);
+  print(response.statusCode); 
+  print(response.body);
+  
+
+
+
+}
+
+
   Future<List<Articles>> getNotice() async {
     const String uri =
         'https://newsapi.org/v2/top-headlines?country=ar&apiKey=208c4735550b42a8a31633529958a88f';
@@ -58,4 +83,6 @@ class ProviderService extends ChangeNotifier {
     }
     return listadoNoticias;
   }
+
+
 }

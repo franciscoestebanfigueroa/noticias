@@ -26,7 +26,7 @@ class _ListCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProviderService>(context);
-    return Container(
+    return SizedBox(
         height: 80,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -37,17 +37,22 @@ class _ListCategory extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Card(
-                      margin: EdgeInsets.all(5),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(provider.category[index].categoria
-                                .toUpperCase()),
-                          ),
-                        ],
-                      )),
+                  GestureDetector(
+                    onTap: (){
+                      provider.getBusqueda(provider.category[index].categoria);
+                    },
+                    child: Card(
+                        margin:const  EdgeInsets.all(5),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(provider.category[index].categoria
+                                  .toUpperCase()),
+                            ),
+                          ],
+                        )),
+                  ),
                 ],
               );
             }));
