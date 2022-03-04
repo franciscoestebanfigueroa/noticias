@@ -43,11 +43,13 @@ Future getBusqueda(String category)async{
   Uri url = Uri.https(authority, unencodedPath,q);
   http.Response response = await http.get(url);
   print(response.statusCode); 
-  print(response.body);
   var dataDecode= jsonDecode(response.body);
   var data=Data.fromjson(dataDecode);
+  print(' total de resultados ${data.totalResults}');
+
+  //if(data.totalResults){}
   listadoNoticias.clear();
-  listadoNoticias.addAll(data.articles);
+  //listadoNoticias.addAll(data.articles);
   
 
 

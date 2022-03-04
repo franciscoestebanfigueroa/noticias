@@ -1,11 +1,11 @@
 class Data {
   final String status;
-  final int totalResults;
+  final int? totalResults;
   final List<Articles> articles;
 
   Data.fromjson(Map<String, dynamic> data)
       : status = data['status'],
-        totalResults = data['totalResults'],
+        totalResults = data['totalResults']?? 0,
         articles = List<Articles>.from(
             data['articles'].map((e) => Articles.fromjson(e)));
 }
