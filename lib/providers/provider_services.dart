@@ -21,9 +21,20 @@ class ProviderService extends ChangeNotifier {
     Categorias(FontAwesomeIcons.memory, 'technology'),
   ];
   int page = 0;
+  String _country = 'us';
 
   ProviderService() {
     getNotice();
+  }
+
+  String get country => _country;
+  set country(String value) {
+    _country = value;
+    listadoNoticias.clear;
+    notifyListeners();
+    getNotice();
+    print('pase');
+    notifyListeners();
   }
 
   Future getBusqueda(String category) async {
@@ -32,7 +43,7 @@ class ProviderService extends ChangeNotifier {
     String authority = 'newsapi.org';
     String unencodedPath = 'v2/top-headlines';
     Map<String, dynamic> q = {
-      'country': 'ar',
+      'country': _country,
       'apiKey': '208c4735550b42a8a31633529958a88f',
       'page': '0',
       'category': category
@@ -60,7 +71,7 @@ class ProviderService extends ChangeNotifier {
       'newsapi.org',
       '/v2/top-headlines',
       {
-        'country': 'ar',
+        'country': _country,
         'apiKey': '208c4735550b42a8a31633529958a88f',
         'page': page.toString()
       },

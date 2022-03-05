@@ -14,11 +14,11 @@ class DetalleNoticias extends StatelessWidget {
         title: Text(articles.titulo),
       ),
       body: SafeArea(
-        child: Container(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.35,
                 child: (articles.urlImage == '')
                     ? Container(
@@ -46,7 +46,7 @@ class DetalleNoticias extends StatelessWidget {
                     articles.content!.length > 200
                         ? articles.content?.substring(0, 200) ?? ''
                         : articles.content ?? '',
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
                 ),
               ),

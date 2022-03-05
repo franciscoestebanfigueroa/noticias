@@ -12,7 +12,34 @@ class Home extends StatelessWidget {
     final provider =
         Provider.of<ProviderCustomBottonBar>(context, listen: true);
     final controlerPage = provider.pagecontroler;
+    List<DropdownMenuItem<String>> listaDrop = const [
+      DropdownMenuItem(
+        child: Text('Argentina'),
+        value: 'ar',
+      ),
+      DropdownMenuItem(
+        child: Text('Chile'),
+        value: 'ch',
+      ),
+      DropdownMenuItem(
+        child: Text('EEUU'),
+        value: 'us',
+      )
+    ];
+    final providerdata = Provider.of<ProviderService>(context);
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          DropdownButton<String>(
+            onChanged: (x) {
+              print(x);
+              providerdata.country = x!;
+            },
+            items: listaDrop,
+            value: providerdata.country,
+          )
+        ],
+      ),
       body: _Body(controlerPage: controlerPage),
       bottomNavigationBar: const CustomNavigatorBar(),
       //  floatingActionButton: FloatingActionButton(
