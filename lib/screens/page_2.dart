@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:noticias/providers/provider_services.dart';
+import 'package:noticias/screens/detalles_noticias.dart';
 import 'package:provider/provider.dart';
 
 class Page2 extends StatelessWidget {
@@ -38,11 +39,11 @@ class _ListCategory extends StatelessWidget {
                     height: 20,
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       provider.getBusqueda(provider.category[index].categoria);
                     },
                     child: Card(
-                        margin:const  EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(5),
                         child: Row(
                           children: [
                             Padding(
@@ -64,23 +65,39 @@ class _CardNoticias extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider=Provider.of<ProviderService>(context);
+    final provider = Provider.of<ProviderService>(context);
     return Expanded(
       child: ListView.builder(
           itemCount: provider.listadoNoticias.length,
           itemBuilder: (context, index) {
-            return Card(
-                child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children:   [
-                  FadeInImage(
-                      placeholder: AssetImage('assets/no-image.png'),
-                      image:NetworkImage(provider.listadoNoticias[index].urlImage!,scale: .5)),
-                  Text(provider.listadoNoticias[index].titulo??'sin datos'),
-                ],
-              ),
-            ));
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return DetalleNoticias(
+                      articles: provider.listadoNoticias[index]);
+                }));
+              },
+              child: Card(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    provider.listadoNoticias[index].urlImage != ''
+                        ? FadeInImage(
+                            placeholder:
+                                const AssetImage('assets/no-image.png'),
+                            image: NetworkImage(
+                                provider.listadoNoticias[index].urlImage!,
+                                scale: 2.5))
+                        : Image.asset('assets/no-image.png'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(provider.listadoNoticias[index].titulo),
+                  ],
+                ),
+              )),
+            );
           }),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:noticias/providers/providers.dart';
 import 'package:provider/provider.dart';
 
@@ -10,19 +11,17 @@ class CustomNavigatorBar extends StatelessWidget {
     final provider = Provider.of<ProviderCustomBottonBar>(context);
     return BottomNavigationBar(
       currentIndex: provider.indexBotton,
-      onTap: (value){
-        provider.indexBotton=value;
+      onTap: (value) {
+        provider.indexBotton = value;
       },
       items: const [
         BottomNavigationBarItem(
-          
-          label: '1',
-          icon: Icon(Icons.abc),
-
+          label: 'Noticias Principales',
+          icon: Icon(FontAwesomeIcons.circleNotch),
         ),
         BottomNavigationBarItem(
-          label: '2',
-          icon: Icon(Icons.abc),
+          label: 'Noticias por Categotias',
+          icon: Icon(FontAwesomeIcons.search),
         ),
       ],
     );

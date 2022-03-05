@@ -26,38 +26,31 @@ class ProviderService extends ChangeNotifier {
     getNotice();
   }
 
-
-Future getBusqueda(String category)async{
- //https://newsapi.org/v2/top-headlines/sources?apiKey=API_KEY
+  Future getBusqueda(String category) async {
+    //https://newsapi.org/v2/top-headlines/sources?apiKey=API_KEY
 //https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=208c4735550b42a8a31633529958a88f
-    String authority='newsapi.org';
-    String unencodedPath='v2/top-headlines';
-    Map<String,dynamic>q={
+    String authority = 'newsapi.org';
+    String unencodedPath = 'v2/top-headlines';
+    Map<String, dynamic> q = {
       'country': 'ar',
-        'apiKey': '208c4735550b42a8a31633529958a88f',
-        'page':'0',
-        'category':category
-
+      'apiKey': '208c4735550b42a8a31633529958a88f',
+      'page': '0',
+      'category': category
     };
 
-  Uri url = Uri.https(authority, unencodedPath,q);
-  http.Response response = await http.get(url);
-  print(response.statusCode); 
-  var dataDecode= jsonDecode(response.body);
-  print(dataDecode);
-  var data=Data.fromjson(dataDecode);
-  print(' total de resultados ${data.totalResults.toString()}');
+    Uri url = Uri.https(authority, unencodedPath, q);
+    http.Response response = await http.get(url);
+    print(response.statusCode);
+    var dataDecode = jsonDecode(response.body);
+    print(dataDecode);
+    var data = Data.fromjson(dataDecode);
+    print(' total de resultados ${data.totalResults.toString()}');
 
-  //if(data.totalResults){}
-  listadoNoticias.clear();
-  listadoNoticias.addAll(data.articles);
-  notifyListeners();
-  
-
-
-
-}
-
+    //if(data.totalResults){}
+    listadoNoticias.clear();
+    listadoNoticias.addAll(data.articles);
+    notifyListeners();
+  }
 
   Future<List<Articles>> getNotice() async {
     const String uri =
@@ -92,6 +85,4 @@ Future getBusqueda(String category)async{
     }
     return listadoNoticias;
   }
-
-
 }
