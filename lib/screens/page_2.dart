@@ -76,7 +76,7 @@ class _CardNoticias extends StatelessWidget {
                 children:   [
                   FadeInImage(
                       placeholder: AssetImage('assets/no-image.png'),
-                      image:AssetImage('assets/no-image.png')),
+                      image:NetworkImage(provider.listadoNoticias[index].urlImage!,scale: .5)),
                   Text(provider.listadoNoticias[index].titulo??'sin datos'),
                 ],
               ),

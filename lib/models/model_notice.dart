@@ -7,7 +7,7 @@ class Data {
       : status = data['status'],
         totalResults = data['totalResults']?? 0,
         articles = List<Articles>.from(
-            data['articles'].map((e) => Articles.fromjson(e)));
+            data['articles']?.map((e) => Articles.fromjson(e))??[]);
 }
 
 class Articles {

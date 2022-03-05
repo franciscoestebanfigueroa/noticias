@@ -29,9 +29,9 @@ class ProviderService extends ChangeNotifier {
 
 Future getBusqueda(String category)async{
  //https://newsapi.org/v2/top-headlines/sources?apiKey=API_KEY
-
+//https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=208c4735550b42a8a31633529958a88f
     String authority='newsapi.org';
-    String unencodedPath='v2/top-headlines/sources';
+    String unencodedPath='v2/top-headlines';
     Map<String,dynamic>q={
       'country': 'ar',
         'apiKey': '208c4735550b42a8a31633529958a88f',
@@ -44,12 +44,14 @@ Future getBusqueda(String category)async{
   http.Response response = await http.get(url);
   print(response.statusCode); 
   var dataDecode= jsonDecode(response.body);
+  print(dataDecode);
   var data=Data.fromjson(dataDecode);
-  print(' total de resultados ${data.totalResults}');
+  print(' total de resultados ${data.totalResults.toString()}');
 
   //if(data.totalResults){}
   listadoNoticias.clear();
-  //listadoNoticias.addAll(data.articles);
+  listadoNoticias.addAll(data.articles);
+  notifyListeners();
   
 
 
