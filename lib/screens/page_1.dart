@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noticias/models/model_notice.dart';
 import 'package:noticias/providers/provider_services.dart';
 import 'package:provider/provider.dart';
 
@@ -16,25 +17,28 @@ class Page1 extends StatefulWidget {
   State<Page1> createState() => _Page1State();
 }
 
-class _Page1State extends State<Page1> with AutomaticKeepAliveClientMixin {
-  @override
-  void initState() {
-    widget.providerService.addListener(() async {
-      if ((widget.providerService.scrollController.position.pixels) ==
-          (widget.providerService.scrollController.position.maxScrollExtent)) {
-        await widget.providerService.getNotice();
-
-        //llamar a get y add a lista desectructurando con  _listapopular = [..._listapopular, ...modelPopular.results];
-      }
-    });
-  }
-
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   scrollController.removeListener(() {});
-  //   scrollController.dispose();
-  // }
+class _Page1State extends State<Page1> {
+//  @override
+//  void initState() {
+//    widget.providerService.addListener(() async {
+//      if (widget.providerService.scrollController != null) {
+//        if ((widget.providerService.scrollController.position.pixels) ==
+//            (widget
+//                .providerService.scrollController.position.maxScrollExtent)) {
+//          await widget.providerService.getNotice();
+//
+//          //llamar a get y add a lista desectructurando con  _listapopular = [..._listapopular, ...modelPopular.results];
+//        }
+//      }
+//    });
+//  }
+//
+//  @override
+//  void dispose() {
+//    // TODO: implement dispose
+//    widget.providerService.scrollController.removeListener(() {});
+//    widget.providerService.scrollController.dispose();
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,18 +55,12 @@ class _Page1State extends State<Page1> with AutomaticKeepAliveClientMixin {
         : Container(
             margin: const EdgeInsets.all(10),
             child: ListView.builder(
-                controller: providerUrl.scrollController,
+                //controller: providerUrl.scrollController,
                 itemCount: providerUrl.listadoNoticias.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Scaffold(
-                          body: DetalleNoticias(
-                              articles: providerUrl.listadoNoticias[index]),
-                        );
-                      }));
+                      detalle(providerUrl.listadoNoticias[index]);
                     },
                     child: Column(
                       children: [
@@ -90,8 +88,15 @@ class _Page1State extends State<Page1> with AutomaticKeepAliveClientMixin {
                       ],
                     ),
                   );
-                }),
-          );
+                }));
+  }
+
+  void detalle(Articles article) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return Scaffold(
+        body: DetalleNoticias(articles: article),
+      );
+    }));
   }
 
   ImageProvider imgdata(ProviderService providerUrl, int index) {
@@ -102,10 +107,10 @@ class _Page1State extends State<Page1> with AutomaticKeepAliveClientMixin {
     }
   }
 
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive =>
-      true; //mantiene el estado automatico para cuando regresamos de un page
+  //@override
+  //// TODO: implement wantKeepAlive
+  //bool get wantKeepAlive =>
+  //    true; //mantiene el estado automatico para cuando regresamos de un page
 }
 
 class _ListEmpty extends StatelessWidget {

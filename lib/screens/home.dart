@@ -18,8 +18,8 @@ class Home extends StatelessWidget {
         value: 'ar',
       ),
       DropdownMenuItem(
-        child: Text('Chile'),
-        value: 'ch',
+        child: Text('Maxico'),
+        value: 'mx',
       ),
       DropdownMenuItem(
         child: Text('EEUU'),
@@ -29,14 +29,17 @@ class Home extends StatelessWidget {
     final providerdata = Provider.of<ProviderService>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black,
         actions: [
           DropdownButton<String>(
             onChanged: (x) {
-              print(x);
-              providerdata.country = x!;
+              providerdata.country = x ?? 'mx';
             },
             items: listaDrop,
             value: providerdata.country,
+          ),
+          const SizedBox(
+            width: 20,
           )
         ],
       ),

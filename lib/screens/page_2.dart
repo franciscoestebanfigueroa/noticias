@@ -28,7 +28,7 @@ class _ListCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<ProviderService>(context);
     return SizedBox(
-        height: 80,
+        height: 100,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: provider.category.length,
@@ -43,13 +43,20 @@ class _ListCategory extends StatelessWidget {
                       provider.getBusqueda(provider.category[index].categoria);
                     },
                     child: Card(
-                        margin: const EdgeInsets.all(5),
-                        child: Row(
+                        color: Colors.transparent,
+                        margin: const EdgeInsets.all(2),
+                        child: Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(provider.category[index].categoria
-                                  .toUpperCase()),
+                              padding: const EdgeInsets.all(4.0),
+                              child: Icon(provider.category[index].icon),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(provider.category[index].categoria[0]
+                                      .toUpperCase() +
+                                  provider.category[index].categoria
+                                      .substring(1)),
                             ),
                           ],
                         )),

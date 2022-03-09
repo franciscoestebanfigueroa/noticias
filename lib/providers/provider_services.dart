@@ -9,7 +9,8 @@ import 'package:noticias/models/model_notice.dart';
 
 class ProviderService extends ChangeNotifier {
   ScrollController scrollController = ScrollController();
-
+  //String _apiKey = '431a2b39236d43baaafbf67530faa12d';
+  String _apiKey = '208c4735550b42a8a31633529958a88f';
   List<Articles> listadoNoticias = [];
   List<Categorias> category = [
     Categorias(FontAwesomeIcons.building, 'business'),
@@ -21,7 +22,7 @@ class ProviderService extends ChangeNotifier {
     Categorias(FontAwesomeIcons.memory, 'technology'),
   ];
   int page = 0;
-  String _country = 'us';
+  String _country = 'ar';
 
   ProviderService() {
     getNotice();
@@ -30,10 +31,12 @@ class ProviderService extends ChangeNotifier {
   String get country => _country;
   set country(String value) {
     _country = value;
-    listadoNoticias.clear;
+    listadoNoticias = [];
+
+    //listadoNoticias.clear;
     notifyListeners();
-    getNotice();
-    print('pase');
+    getBusqueda('business');
+    print(_country);
     notifyListeners();
   }
 
@@ -44,7 +47,7 @@ class ProviderService extends ChangeNotifier {
     String unencodedPath = 'v2/top-headlines';
     Map<String, dynamic> q = {
       'country': _country,
-      'apiKey': '208c4735550b42a8a31633529958a88f',
+      'apiKey': _apiKey,
       'page': '0',
       'category': category
     };
@@ -70,18 +73,15 @@ class ProviderService extends ChangeNotifier {
     Uri url = Uri.https(
       'newsapi.org',
       '/v2/top-headlines',
-      {
-        'country': _country,
-        'apiKey': '208c4735550b42a8a31633529958a88f',
-        'page': page.toString()
-      },
+      {'country': _country, 'apiKey': _apiKey, 'page': page.toString()},
     );
     //Uri url = Uri.parse(uri);
     http.Response response = await http.get(url);
     print('estatus response ${response.statusCode}');
-    if (response.statusCode == 429) {
+    if (response.statusCode != 200) {
       print(jsonDecode(response.body)['status']);
       print(jsonDecode(response.body)['message']);
+      _apiKey = '431a2b39236d43baaafbf67530faa12d';
     }
 
     if (response.statusCode == 200) {
